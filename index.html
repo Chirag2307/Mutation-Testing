@@ -1,0 +1,2731 @@
+ArrayFunctions.java
+
+1		
+package com.softwareTesting.ArrayFunctions;
+2		
+import java.util.*;
+3		
+4		
+5		
+import java.util.*;
+6		
+7		
+8		
+public class ArrayFunctions { 
+9		
+10		
+    // BUBBLE SORTING OF ARRAY
+11		
+    int[] bubbleSort(int myarr[]) 
+12		
+    {
+13		
+        int len = myarr.length, tmp;
+14		
+        boolean flag;
+15		
+        int arr[] = new int[len];
+16	3	
+        for(int i = 0; i < len; i++)
+17		
+        {
+18		
+            arr[i] = myarr[i];
+19		
+        }
+20	3	
+        for (int i = 0; i < len; i++) 
+21		
+        {
+22		
+            flag = false;
+23	5	
+            for (int j = 0; j < len - i - 1; j++) 
+24		
+            {
+25	3	
+                if (arr[j] > arr[j + 1]) 
+26		
+                {
+27		
+                    tmp = arr[j];
+28	1	
+                    arr[j] = arr[j + 1];
+29	1	
+                    arr[j + 1] = tmp;
+30		
+                    flag = true;
+31		
+                }
+32		
+            }
+33	1	
+            if (!flag)
+34		
+                break;
+35		
+        }
+36	1	
+        return arr;
+37		
+    }
+38		
+    // BUBBLE SORTING OF ARRAY
+39		
+40		
+41		
+    // INSERTION SORTING OF ARRAY
+42		
+    int[] insertionSort(int myarr[]) 
+43		
+    {
+44		
+        int len = myarr.length, tmp, j;
+45		
+        int arr[] = new int[len];
+46	3	
+        for(int i = 0; i < len; i++)
+47		
+        {
+48		
+            arr[i] = myarr[i];
+49		
+        }
+50	3	
+        for (int i = 1; i < len; i++) 
+51		
+        {
+52		
+            tmp = arr[i];
+53	3	
+            for (j = i; j > 0; j--) 
+54		
+            {
+55	3	
+                if (arr[j - 1] > tmp)
+56		
+                {
+57	1	
+                    arr[j] = arr[j - 1];
+58		
+                }   
+59		
+                else
+60		
+                    break;
+61		
+            }
+62		
+            arr[j] = tmp;
+63		
+        }
+64	1	
+        return arr;
+65		
+    }
+66		
+    // INSERTION SORTING OF ARRAY
+67		
+68		
+69		
+    //Heap  Sort
+70		
+    int[] heapSort(int myarr[]) 
+71		
+    {
+72		
+        int len = myarr.length;
+73		
+        int arr[] = new int[len];
+74	3	
+        for(int i = 0; i < len; i++)
+75		
+        {
+76		
+            arr[i] = myarr[i];
+77		
+        }
+78	1	
+        makeMaxHeap(arr);
+79		
+        int tmp;
+80	4	
+        for (int i = arr.length - 1; i > 0; i--) 
+81		
+        {
+82		
+            tmp = arr[0];
+83		
+            arr[0] = arr[i];
+84		
+            arr[i] = tmp;
+85	1	
+            heapAdjust(arr, 0, i);
+86		
+        }
+87	1	
+        return arr;
+88		
+    }
+89		
+90		
+    private static void makeMaxHeap(int arr[]) 
+91		
+    {
+92		
+        int len = arr.length;
+93	5	
+        for (int i = len / 2 - 1; i >= 0; --i) 
+94		
+        {
+95	1	
+            heapAdjust(arr, i, len);
+96		
+        }
+97		
+    }
+98		
+99		
+    private static void heapAdjust(int arr[], int i, int n) 
+100		
+    {
+101	2	
+        int j = 2 * i + 1;
+102		
+        int tmp = arr[i];
+103	2	
+        while (j < n) 
+104		
+        {
+105	6	
+            if (j < n - 1 && arr[j] < arr[j + 1])
+106		
+            {
+107	1	
+                j++;
+108		
+            }
+109	2	
+            if (tmp > arr[j])
+110		
+            {
+111		
+                break;
+112		
+            } 
+113	2	
+            arr[(j - 1) / 2] = arr[j];
+114	2	
+            j = 2 * j + 1;
+115		
+        }
+116	2	
+        arr[(j - 1) / 2] = tmp;
+117		
+    }
+118		
+    //HEAP SORT
+119		
+120		
+121		
+    // Merge Sort
+122		
+    int[] mergeSort(int myarr[])
+123		
+    {
+124		
+        int len = myarr.length;
+125		
+        int arr[] = new int[len];
+126	3	
+        for(int i = 0; i < len; i++)
+127		
+        {
+128		
+            arr[i] = myarr[i];
+129		
+        }
+130	2	
+        __mergeSort(arr,0,len-1);
+131	1	
+        return arr;
+132		
+    }
+133		
+134		
+    private static void __mergeSort(int arr[], int lower, int upper) 
+135		
+    {
+136	2	
+        if (lower >= upper)
+137		
+        {
+138		
+            return;
+139		
+        }
+140	2	
+        int m = (lower + upper) / 2;
+141	1	
+        __mergeSort(arr, lower, m);
+142	2	
+        __mergeSort(arr, m + 1, upper);
+143	1	
+        merge(arr, lower, upper);
+144		
+    }
+145		
+146		
+    private static void merge(int arr[], int lower, int upper) 
+147		
+    {
+148	2	
+        int m = (lower + upper) / 2;
+149	2	
+        int a[] = new int[m - lower + 1];
+150	1	
+        int b[] = new int[upper - m];
+151		
+        int i, k = 0, k1 = 0, k2 = 0;
+152	4	
+        for (i = lower; i <= m; i++, k++)
+153		
+        {
+154		
+            a[k] = arr[i];
+155		
+        }
+156		
+        k = 0;
+157	4	
+        for (; i <= upper; i++, k++)
+158		
+        {
+159		
+            b[k] = arr[i];
+160		
+        }
+161	10	
+        for (i = lower; i <= upper && k1 < m - lower + 1 && k2 < upper - m; i++) 
+162		
+        {
+163	2	
+            if (a[k1] < b[k2]) 
+164		
+            {
+165		
+                arr[i] = a[k1];
+166	1	
+                k1++;
+167		
+            } 
+168		
+            else 
+169		
+            {
+170		
+                arr[i] = b[k2];
+171	1	
+                k2++;
+172		
+            }
+173		
+        }
+174	5	
+        for (; k1 < m - lower + 1; k1++)
+175		
+        {
+176	1	
+            arr[i++] = a[k1];
+177		
+        }
+178	4	
+        for (; k2 < upper - m; k2++)
+179		
+        {
+180	1	
+            arr[i++] = b[k2];
+181		
+        }       
+182		
+    }
+183		
+    // Merge Sort Ends
+184		
+185		
+186		
+    // Selection Sort
+187		
+    int[] selectionSort(int myarr[]) 
+188		
+    {
+189		
+        int len = myarr.length;
+190		
+        int arr[] = new int[len];
+191	3	
+        for(int i = 0; i < len; i++)
+192		
+        {
+193		
+            arr[i] = myarr[i];
+194		
+        }
+195		
+        int pos, tmp;
+196	3	
+        for (int i = 0; i < len; i++) 
+197		
+        {
+198		
+            pos = i;
+199	4	
+            for (int j = i + 1; j < len; j++) 
+200		
+            {
+201	2	
+                if (arr[j] < arr[pos])
+202		
+                {
+203		
+                    pos = j;
+204		
+                } 
+205		
+            }
+206		
+            tmp = arr[i];
+207		
+            arr[i] = arr[pos];
+208		
+            arr[pos] = tmp;
+209		
+        }
+210	1	
+        return arr;
+211		
+212		
+    }
+213		
+    // Selection Sort Ends
+214		
+215		
+216		
+    // Quick Sort starts
+217		
+    int[] quickSort(int myarr[])
+218		
+    {
+219		
+        int len = myarr.length;
+220		
+        int arr[] = new int[len];
+221		
+222	3	
+        for(int i = 0; i < len; i++)
+223		
+        {
+224		
+            arr[i] = myarr[i];
+225		
+        }
+226		
+        
+227	2	
+        __quickSort(arr,0,len-1);
+228	1	
+        return arr;
+229		
+    }
+230		
+231		
+    private void __quickSort(int arr[], int lower, int upper) 
+232		
+    {
+233	2	
+        if (lower >= upper)
+234		
+        {
+235		
+            return;
+236		
+        }
+237		
+        int p = partition(arr, lower, upper);
+238	2	
+        __quickSort(arr, lower, p - 1);
+239	2	
+        __quickSort(arr, p + 1, upper);
+240		
+    }
+241		
+242		
+    private static int partition(int arr[], int lower, int upper) 
+243		
+    {
+244		
+        int pivot = arr[upper];
+245		
+        int j = lower;
+246		
+        int tmp;
+247	3	
+        for (int i = lower; i <= upper; i++) 
+248		
+        {
+249	2	
+            if (arr[i] < pivot)
+250		
+            {
+251		
+                tmp = arr[i];
+252		
+                arr[i] = arr[j];
+253		
+                arr[j] = tmp;
+254	1	
+                j++;
+255		
+            }
+256		
+        }
+257		
+        tmp = arr[upper];
+258		
+        arr[upper] = arr[j];
+259		
+        arr[j] = tmp;
+260		
+261	1	
+        return j;
+262		
+    }
+263		
+    //Quick Sort Ends
+264		
+265		
+266		
+    //Counting Sort Starts
+267		
+    int[] countSort(int[] myarr)
+268		
+    {   
+269		
+        int len = myarr.length;
+270		
+        int arr[] = new int[len];
+271	2	
+        for(int i = 0; i < len; i++)
+272		
+        {
+273		
+            arr[i] = myarr[i];
+274		
+        }
+275		
+        int max = Arrays.stream(arr).max().getAsInt();
+276		
+        int min = Arrays.stream(arr).min().getAsInt();
+277	2	
+        int range = max - min + 1;
+278		
+        int count[] = new int[range];
+279		
+        int output[] = new int[len];
+280	2	
+        for (int i = 0; i < arr.length; i++)
+281		
+        {
+282	2	
+            count[arr[i] - min]++;
+283		
+        }
+284		
+ 
+285	2	
+        for (int i = 1; i < count.length; i++)
+286		
+        {
+287	2	
+            count[i] += count[i - 1];
+288		
+        }
+289		
+ 
+290	3	
+        for (int i = arr.length - 1; i >= 0; i--) 
+291		
+        {
+292	2	
+            output[count[arr[i] - min] - 1] = arr[i];
+293	2	
+            count[arr[i] - min]--;
+294		
+        }
+295		
+ 
+296	2	
+        for (int i = 0; i < arr.length; i++) 
+297		
+        {
+298		
+            arr[i] = output[i];
+299		
+        }
+300		
+301	1	
+        return arr;
+302		
+    }
+303		
+    //Counting Sort Ends
+304		
+305		
+306		
+    //Odd-Even Sort Starts
+307		
+    int[] oddEvenSort(int myarr[])
+308		
+    {
+309		
+        int len = myarr.length;
+310		
+        int arr[] = new int[len];
+311	3	
+        for(int i = 0; i < len; i++)
+312		
+        {
+313		
+            arr[i] = myarr[i];
+314		
+        }
+315		
+        boolean sorted = false;
+316	1	
+        while (!sorted) 
+317		
+        {
+318		
+            sorted = true;
+319	4	
+            for (int i = 1; i < arr.length - 1; i += 2) 
+320		
+            {
+321	3	
+                if (arr[ i ] > arr[ i + 1 ]) 
+322		
+                {
+323	2	
+                    swap( arr , i , i + 1 );
+324		
+                    sorted = false;
+325		
+                }
+326		
+            }
+327		
+  
+328	4	
+            for (int i = 0; i < arr.length - 1; i += 2) 
+329		
+            {
+330	3	
+                if (arr[ i ] > arr[ i + 1 ]) 
+331		
+                {
+332	2	
+                    swap( arr , i , i + 1 );
+333		
+                    sorted = false;
+334		
+                }
+335		
+            }
+336		
+       }
+337	1	
+       return arr;
+338		
+    }
+339		
+340		
+    private static void swap(int[] array, int i, int j) 
+341		
+    {
+342		
+        int temp;
+343		
+        temp = array[ i ];
+344		
+        array[ i ] = array[ j ];
+345		
+        array[ j ] = temp;
+346		
+    }
+347		
+    //Odd Even Sort Ends
+348		
+349		
+350		
+    //Bucket Sort Starts
+351		
+    int[] bucketSort(int[] sequence) 
+352		
+    {
+353		
+        int maxValue = getMax(sequence);
+354		
+        // Bucket Sort
+355	1	
+        int[] Bucket = new int[maxValue + 1];
+356		
+        int[] sortedSequence = new int[sequence.length];
+357		
+ 
+358	2	
+        for (int i = 0; i < sequence.length; i++)
+359	1	
+            Bucket[sequence[i]]++;
+360		
+ 
+361		
+        int outPos = 0;
+362	3	
+        for (int i = 0; i < Bucket.length; i++)
+363	3	
+            for (int j = 0; j < Bucket[i]; j++)
+364	1	
+                sortedSequence[outPos++] = i;
+365		
+ 
+366	1	
+        return sortedSequence;
+367		
+    }
+368		
+    //Bucket Sort ends
+369		
+370		
+371		
+    //Comb Sort Starts
+372		
+    int[] combSort(int[] myarr) {
+373		
+        int n = myarr.length;
+374		
+        int arr[] = new int[n];
+375	3	
+        for(int i = 0; i < n; i++)
+376		
+        {
+377		
+            arr[i] = myarr[i];
+378		
+        }
+379		
+        // initialize gap
+380		
+        int gap = n;
+381		
+382		
+        // Initialize swapped as true to make sure that
+383		
+        // loop runs
+384		
+        boolean swapped = true;
+385		
+386		
+        // Keep running while gap is more than 1 and last
+387		
+        // iteration caused a swap
+388	2	
+        while (gap != 1 || swapped == true)
+389		
+        {
+390		
+            // Find next gap
+391		
+            gap = getNextGap(gap);
+392		
+393		
+            // Initialize swapped as false so that we can
+394		
+            // check if swap happened or not
+395		
+            swapped = false;
+396		
+397		
+            // Compare all elements with current gap
+398	4	
+            for (int i=0; i<n-gap; i++)
+399		
+            {
+400	3	
+                if (arr[i] > arr[i+gap])
+401		
+                {
+402		
+                    // Swap arr[i] and arr[i+gap]
+403		
+                    int temp = arr[i];
+404	1	
+                    arr[i] = arr[i+gap];
+405	1	
+                    arr[i+gap] = temp;
+406		
+407		
+                    // Set swapped
+408		
+                    swapped = true;
+409		
+                }
+410		
+            }
+411		
+        }
+412	1	
+        return arr;
+413		
+    }
+414		
+415		
+    // To find gap between elements
+416		
+    static int getNextGap(int gap)
+417		
+    {
+418		
+        // Shrink gap by Shrink factor
+419	2	
+        gap = (gap*10)/13;
+420	2	
+        if (gap < 1)
+421	1	
+            return 1;
+422	1	
+        return gap;
+423		
+    }
+424		
+    //Comb Sort Ends
+425		
+426		
+    void printArray(int arr[])
+427		
+    {
+428		
+        int n = arr.length;
+429	3	
+        for (int i=0; i<n; ++i)
+430		
+        {
+431	1	
+            System.out.print(arr[i]+" ");
+432		
+        }
+433	1	
+        System.out.println();
+434		
+    }
+435		
+436		
+437		
+    //Koustubh starts
+438		
+    //get Minimum of Elements of an Array
+439		
+    int getMin(int arr[])
+440		
+    {   
+441		
+        int n = arr.length;
+442		
+        int res = arr[0];
+443	3	
+        for (int i = 1; i < n; i++)
+444		
+        {
+445	2	
+            if(res>arr[i])
+446		
+            {
+447		
+                res=arr[i];
+448		
+            }
+449		
+        }  
+450	1	
+        return res;
+451		
+    }
+452		
+453		
+454		
+    //get Maximum of Elements of an Array
+455		
+    static int getMax(int arr[])
+456		
+    {   
+457		
+        int n = arr.length;
+458		
+        int res = arr[0];
+459	3	
+        for (int i = 1; i < n; i++)
+460		
+        {
+461	2	
+            if(res<arr[i])
+462		
+            {
+463		
+                res=arr[i];
+464		
+            }
+465		
+        }
+466	1	
+        return res;
+467		
+    }
+468		
+469		
+470		
+    //Search for given element x in given array
+471		
+    int search(int arr[], int x)
+472		
+    {
+473		
+        int n = arr.length;
+474	3	
+        for (int i = 0; i < n; i++)
+475		
+        {
+476	1	
+            if (arr[i] == x)
+477		
+            {
+478	1	
+                return i;
+479		
+            }
+480		
+        }
+481	1	
+        return -1;
+482		
+    }
+483		
+484		
+485		
+    //Sum of Elements of array
+486		
+    int sum(int arr[])
+487		
+    {
+488		
+        int n = arr.length;
+489		
+        int ans=0;
+490	3	
+        for (int i = 0; i < n; i++)
+491		
+        {
+492	1	
+            ans+=arr[i];
+493		
+        }
+494	1	
+        return ans;
+495		
+    }
+496		
+497		
+498		
+    //Searching for element x in given array in O(logN)
+499		
+    int binarySearch(int arr[], int x)
+500		
+    {
+501	1	
+        int l = 0, r = arr.length - 1;
+502	2	
+        while (l <= r) 
+503		
+        {
+504	3	
+            int m = l + (r - l) / 2;
+505		
+506		
+            // Check if x is present at mid
+507	1	
+            if (arr[m] == x)
+508		
+            {
+509	1	
+                return m;
+510		
+            }
+511		
+            // If x greater, ignore left half
+512	2	
+            else if (arr[m] < x)
+513		
+            {
+514	1	
+                l = m + 1;
+515		
+            }
+516		
+            // If x is smaller, ignore right half
+517		
+            else
+518		
+            {
+519	1	
+                r = m - 1;
+520		
+            }    
+521		
+        }
+522		
+        // if we reach here, then element was not present
+523	1	
+        return -1;
+524		
+    }
+525		
+526		
+527		
+    //Left rotate the Array by 1  
+528		
+    int[] leftRotatebyOne(int myarr[])
+529		
+    {   
+530		
+        int len = myarr.length;
+531		
+        int arr[] = new int[len];
+532		
+533	3	
+        for(int i = 0; i < len; i++)
+534		
+        {
+535		
+            arr[i] = myarr[i];
+536		
+        }
+537		
+538		
+        int temp = arr[0], i;
+539	4	
+        for (i = 0; i < len - 1; i++)
+540		
+        {
+541	1	
+            arr[i] = arr[i + 1];
+542		
+        }
+543	1	
+        arr[len-1] = temp;
+544	1	
+        return arr;
+545		
+    }
+546		
+547		
+548		
+    //helper function reverse a sub array of the subarray
+549		
+    private int [] reverseSubArray(int myarr[], int start, int end)
+550		
+    {   
+551		
+        int len = myarr.length;
+552		
+        int arr[] = new int[len];
+553	3	
+        for(int i = 0; i < len; i++)
+554		
+        {
+555		
+            arr[i] = myarr[i];
+556		
+        }
+557		
+        
+558	2	
+        while (start < end)
+559		
+        {
+560		
+            int temp = arr[start];
+561		
+            arr[start] = arr[end];
+562		
+            arr[end] = temp;
+563	1	
+            start++;
+564	1	
+            end--;
+565		
+        }
+566	1	
+        return arr;
+567		
+    }
+568		
+569		
+    
+570		
+    //reverse the array
+571		
+    int [] reverseArray(int myarr[])
+572		
+    {
+573		
+        int len = myarr.length;
+574		
+        int arr[] = new int[len];
+575	3	
+        for(int i = 0; i < len; i++)
+576		
+        {
+577		
+            arr[i] = myarr[i];
+578		
+        }
+579	1	
+        arr = reverseSubArray(arr,0,len-1);
+580	1	
+        return arr;
+581		
+    }
+582		
+583		
+    int gcd(int a, int b)
+584		
+    {
+585	1	
+        if (b == 0)
+586		
+        {
+587	1	
+            return a;
+588		
+        }
+589		
+        else
+590		
+        {
+591	2	
+            return gcd(b, a % b);
+592		
+        }
+593		
+    }
+594		
+595		
+596		
+    //Left rotate a array by k units
+597		
+    int[] leftRotatebyK(int myarr[], int d)
+598		
+    {   
+599		
+        int n = myarr.length;
+600		
+        int arr[] = new int[n];
+601	3	
+        for(int i = 0; i < n; i++)
+602		
+        {
+603		
+            arr[i] = myarr[i];
+604		
+        }
+605		
+        
+606	1	
+        d = d % n;
+607		
+        int i, j, k, temp;
+608		
+        int g_c_d = gcd(d, n);
+609	3	
+        for (i = 0; i < g_c_d; i++) 
+610		
+        {
+611		
+            temp = arr[i];
+612		
+            j = i;
+613		
+            while (true) 
+614		
+            {
+615	1	
+                k = j + d;
+616	2	
+                if (k >= n)
+617		
+                {
+618	1	
+                    k = k - n;
+619		
+                } 
+620	1	
+                if (k == i)
+621		
+                {
+622		
+                    break;
+623		
+                }
+624		
+                arr[j] = arr[k];
+625		
+                j = k;
+626		
+            }
+627		
+            arr[j] = temp;
+628		
+        }
+629	1	
+        return arr;
+630		
+    }
+631		
+632		
+633		
+    //Count the occurences of x in arr[]
+634		
+    int countOccurrences(int arr[], int x)
+635		
+    {
+636		
+        int n = arr.length;
+637		
+        int res = 0;
+638	3	
+        for (int i=0; i<n; i++)
+639		
+        {
+640	1	
+            if (x == arr[i])
+641		
+            {
+642	1	
+                res++;
+643		
+            }
+644		
+        } 
+645	1	
+        return res;
+646		
+    }
+647		
+648		
+649		
+    //check if there exists a pair of elements in A[] such that its sum is x.
+650		
+    boolean chkPair(int A[], int x) 
+651		
+    {   
+652		
+        int size = A.length;
+653	4	
+        for (int i = 0; i < (size - 1); i++) 
+654		
+        {
+655	4	
+            for (int j = (i + 1); j < size; j++) 
+656		
+            {
+657	2	
+                if (A[i] + A[j] == x) 
+658		
+                {
+659	1	
+                    return true;
+660		
+                }
+661		
+            }
+662		
+        }
+663	1	
+        return false;
+664		
+    }
+665		
+666		
+667		
+    // Returns median of a[]
+668		
+    public double findMean(int a[])
+669		
+    {
+670		
+        int sum = 0;
+671		
+        int n = a.length;
+672	3	
+        for (int i = 0; i < n; i++)
+673		
+        {
+674	1	
+            sum += a[i];
+675		
+        }
+676	1	
+        double mean = (double)sum / (double)n;
+677	1	
+        return mean;
+678		
+    }
+679		
+680		
+681		
+    // Function for calculating median
+682		
+    public double findMedian(int a[])
+683		
+    {
+684		
+        double median;
+685		
+        int n = a.length;
+686		
+        // First we sort the array
+687	1	
+        Arrays.sort(a);
+688		
+        // check for even case
+689	2	
+        if (n % 2 != 0)
+690		
+        {
+691	1	
+            median = (double)a[n / 2];
+692	1	
+            return median;
+693		
+        }
+694		
+ 
+695	5	
+        median = (double)(a[(n - 1) / 2] + a[n / 2]) / 2.0;
+696	1	
+        return median;
+697		
+    }
+698		
+699		
+700		
+    //Returns element wise sum of a[] and b[]
+701		
+    // If input is invalid then [-1] is returned
+702		
+    int [] sumArrays(int a[],int b[])
+703		
+    {
+704		
+        int n = a.length;
+705		
+        int m = b.length;
+706		
+        
+707	1	
+        if(m==n)
+708		
+        {   
+709		
+            int arr[] = new int[n];
+710	3	
+            for(int i = 0; i < n; i++)
+711		
+            {
+712	1	
+                arr[i] = a[i] + b[i];
+713		
+            }
+714	1	
+            return arr;
+715		
+        }
+716		
+        else 
+717		
+        {
+718		
+            int arr[] = { -1 };
+719	1	
+            return arr;
+720		
+        }
+721		
+    }
+722		
+723		
+724		
+    //Returns element wise difference of a[] and b[]
+725		
+    // If input is invalid then [-1] is returned
+726		
+    int [] diffArrays(int a[],int b[])
+727		
+    {
+728		
+        int n = a.length;
+729		
+        int m = b.length;
+730		
+        
+731	1	
+        if(m==n)
+732		
+        {   
+733		
+            int arr[] = new int[n];
+734	3	
+            for(int i = 0; i < n; i++)
+735		
+            {
+736	1	
+                arr[i] = a[i] - b[i];
+737		
+            }
+738	1	
+            return arr;
+739		
+        }
+740		
+        else 
+741		
+        {
+742		
+            int arr[] = { -1 };
+743	1	
+            return arr;
+744		
+        }
+745		
+    }
+746		
+747		
+748		
+    //Returns element wise product of a[] and b[]
+749		
+    // If input is invalid then [-1] is returned
+750		
+    int [] mulArrays(int a[],int b[])
+751		
+    {
+752		
+        int n = a.length;
+753		
+        int m = b.length;
+754		
+        
+755	1	
+        if(m==n)
+756		
+        {   
+757		
+            int arr[] = new int[n];
+758	3	
+            for(int i = 0; i < n; i++)
+759		
+            {
+760	1	
+                arr[i] = a[i]*b[i];
+761		
+            }
+762	1	
+            return arr;
+763		
+        }
+764		
+        else 
+765		
+        {
+766		
+            int arr[] = { -1 };
+767	1	
+            return arr;
+768		
+        }
+769		
+    }
+770		
+    
+771		
+772		
+    //Append 2 arrays to get a new array
+773		
+    int[] concatArrays(int a[],int b[])
+774		
+    {
+775	1	
+        int len = a.length + b.length;
+776		
+        int[] result = new int[len];
+777		
+        int pos = 0;
+778		
+        for (int element : a) 
+779		
+        {
+780		
+            result[pos] = element;
+781	1	
+            pos++;
+782		
+        }
+783		
+        for (int element : b) 
+784		
+        {
+785		
+            result[pos] = element;
+786	1	
+            pos++;
+787		
+        }
+788	1	
+        return result;
+789		
+    }
+790		
+791		
+ // Find the element with max occurences in the array. In case of multiple such elements return the largest element
+792		
+    int findMaxCount(int myarr[])
+793		
+    {   
+794		
+        int len = myarr.length;
+795		
+        int[] arr = new int[len];
+796		
+        arr = mergeSort(myarr);
+797	1	
+        if(len == 0)
+798	1	
+            return -1;
+799		
+        
+800		
+        int maxcount = 1, element = arr[0];
+801		
+        int curcnt = 1, curelement = arr[0];
+802	3	
+        for(int i = 1; i < len; i++)
+803		
+        {
+804	2	
+            if(arr[i] == arr[i-1])
+805		
+            {
+806	1	
+                curcnt++;
+807		
+            }
+808		
+            else
+809		
+            {   
+810	2	
+                if(maxcount<=curcnt)
+811		
+                {
+812		
+                    maxcount = curcnt;
+813		
+                    element = curelement;
+814		
+                }
+815		
+                curcnt = 1;
+816		
+                curelement = arr[i];
+817		
+            }
+818		
+        }
+819	2	
+        if(maxcount<=curcnt)
+820		
+        {
+821		
+            maxcount = curcnt;
+822		
+            element = curelement;
+823		
+        }
+824	1	
+        return element;
+825		
+    }
+826		
+827		
+    // Find the element with min occurences in the array. In case of multiple such elements return the largest element.
+828		
+    int findMinCount(int myarr[])
+829		
+    {   
+830		
+        int len = myarr.length;
+831		
+        int[] arr = new int[len];
+832		
+        arr = mergeSort(myarr);
+833	1	
+        if(len == 0)
+834	1	
+            return -1;
+835		
+        
+836		
+        int mincount = len, element = arr[0];
+837		
+        int curcnt = 1, curelement = arr[0];
+838	3	
+        for(int i = 1; i < len; i++)
+839		
+        {
+840	2	
+            if(arr[i] == arr[i-1])
+841		
+            {
+842	1	
+                curcnt++;
+843		
+            }
+844		
+            else
+845		
+            {   
+846	2	
+                if(mincount>=curcnt)
+847		
+                {
+848		
+                    mincount = curcnt;
+849		
+                    element = curelement;
+850		
+                }
+851		
+                curcnt = 1;
+852		
+                curelement = arr[i];
+853		
+            }
+854		
+        }
+855	2	
+        if(mincount>=curcnt)
+856		
+        {
+857		
+            mincount = curcnt;
+858		
+            element = curelement;
+859		
+        }
+860	1	
+        return element;
+861		
+    }
+862		
+863		
+    int findKthlargest(int arr[], int k)
+864		
+    {
+865		
+        int len = arr.length;
+866		
+        int[] myarr = new int[len];
+867		
+        myarr = mergeSort(arr);
+868	1	
+        int res = myarr[len - k];
+869	1	
+        return res;
+870		
+    }
+871		
+872		
+    int findKthsmallest(int arr[], int k)
+873		
+    {
+874		
+        int len = arr.length;
+875		
+        int[] myarr = new int[len];
+876		
+        myarr = mergeSort(arr);
+877	1	
+        int res = myarr[k-1];
+878	1	
+        return res;
+879		
+    }
+880		
+881		
+   //Elements of a[] and b[] should be distinct and then union of a[] and b[] is returned.
+882		
+    int[] getUnion(int a[], int b[])
+883		
+    {
+884		
+        int n = a.length;
+885		
+        int m = b.length;
+886		
+        HashSet<Integer> s = new HashSet<>();
+887		
+888	2	
+        for(int i = 0;i<n;i++)
+889		
+        {
+890		
+            s.add(a[i]);
+891		
+        }
+892		
+893	2	
+        for(int i = 0; i < m; i++)
+894		
+        {
+895		
+            s.add(b[i]);
+896		
+        }
+897		
+898		
+        int sz = s.size();
+899		
+        int[] arr = new int[sz];
+900		
+        Iterator itr = s.iterator();
+901		
+        int i = 0;
+902	1	
+        while(itr.hasNext())
+903		
+        {
+904		
+            arr[i] = (Integer)itr.next();
+905	1	
+            i++;
+906		
+        }
+907	1	
+        return arr;
+908		
+    }
+909		
+910		
+    //Elements of a[] and b[] should be distinct and then intersection of a[] and b[] is returned.
+911		
+    int[] getIntersection(int a[],int b[])
+912		
+    {
+913		
+        int n = a.length;
+914		
+        int m = b.length;
+915		
+        int i = 0;
+916		
+        int j = 0;
+917		
+        HashSet<Integer> s = new HashSet<>();
+918	8	
+        while(i < n && j < m && i>=0 && j>=0)
+919		
+        {
+920	2	
+            if(a[i] > b[j])
+921		
+            {
+922	1	
+                j++;
+923		
+            }
+924	2	
+            else if(b[j] > a[i])
+925		
+            {
+926	1	
+                i++;
+927		
+            }
+928		
+            else
+929		
+            {
+930		
+                s.add(a[i]);
+931	1	
+                i++;
+932	1	
+                j++;
+933		
+            }
+934		
+        }
+935		
+        int sz = s.size();
+936		
+        int[] arr = new int[sz];
+937		
+        Iterator itr = s.iterator();
+938		
+        i = 0;
+939	1	
+        while(itr.hasNext())
+940		
+        {
+941		
+            arr[i] = (Integer)itr.next();
+942	1	
+            i++;
+943		
+        }
+944	1	
+        return arr;
+945		
+    }
+946		
+   // Driver code to test above
+947		
+   public static void main(String args[])
+948		
+   {
+949		
+//       ArrayFunctions obj = new ArrayFunctions();
+950		
+//       int arr[] = { 12, 1234, 45, 67, 1 };
+951		
+//       System.out.println("Bubble Sorting");
+952		
+//       int ret1[] = obj.bubbleSort(arr);
+953		
+//       obj.printArray(ret1);
+954		
+//
+955		
+//       System.out.println("Insertion Sorting");
+956		
+//       int ret2[] = obj.insertionSort(arr);
+957		
+//       obj.printArray(ret2);
+958		
+//
+959		
+//       int ret3[] = obj.heapSort(arr);
+960		
+//       System.out.println("Heap Sorting");
+961		
+//       obj.printArray(ret3);
+962		
+//
+963		
+//       int ret4[] = obj.mergeSort(arr);
+964		
+//       System.out.println("Merge Sorting");
+965		
+//       obj.printArray(ret4);
+966		
+//
+967		
+//       int ret5[] = obj.selectionSort(arr);
+968		
+//       System.out.println("Selection Sorting");
+969		
+//       obj.printArray(ret5);
+970		
+//
+971		
+//       int ret6[] = obj.quickSort(arr);
+972		
+//       System.out.println("Quick Sorting");
+973		
+//       obj.printArray(ret6);
+974		
+//
+975		
+//       int ret7[] = obj.countSort(arr);
+976		
+//       System.out.println("Count Sorting");
+977		
+//       obj.printArray(ret7);
+978		
+//
+979		
+//       int ret8[] = obj.oddEvenSort(arr);
+980		
+//       System.out.println("Odd Even Sorting");
+981		
+//       obj.printArray(ret8);
+982		
+//
+983		
+//       int ret9[] = obj.bucketSort(arr);
+984		
+//       System.out.println("Bucket Sorting");
+985		
+//       obj.printArray(ret9);
+986		
+//
+987		
+//       int ret10[] = obj.combSort(arr);
+988		
+//       System.out.println("Comb Sorting");
+989		
+//       obj.printArray(ret10);
+990		
+//
+991		
+//       System.out.println( "Minimum element" + " of array: " + obj.getMin(arr));
+992		
+//
+993		
+//       System.out.println( "Maximum element" + " of array: " + getMax(arr));
+994		
+//
+995		
+//       int result1 = obj.search(arr, 12);
+996		
+//       System.out.println( "Search for 12: " + result1);
+997		
+//
+998		
+//       int result2 = obj.sum(arr);
+999		
+//       System.out.println( "Sum of array: " + result2);
+1000		
+//
+1001		
+//       int result3 = obj.binarySearch(arr, 12);
+1002		
+//       System.out.println( "Binary Search for 12: " + result3);
+1003		
+//
+1004		
+//       int x = 2;
+1005		
+//       System.out.println("Count occurences:"+obj.countOccurrences(arr, x));
+1006		
+//
+1007		
+//       System.out.println("Check pair with given sum: 2 "+obj.chkPair(arr, x));   
+1008		
+//
+1009		
+//       int ar[] = {2, 3, 5, 4, 5, 3, 4};
+1010		
+//
+1011		
+//       System.out.println("Mean = " + obj.findMean(arr));
+1012		
+//
+1013		
+//       System.out.println("Median = " + obj.findMedian(arr));
+1014		
+//
+1015		
+//       int ar1[] = {1,-10,50,200,-569};
+1016		
+//       int ar2[] = {-12,120,89,69,-545454};
+1017		
+//       int ar3[] = {0,0,-1,-3,7,9,4,3943084,1204,-4343,-3,9,6,-3};
+1018		
+//       int ret11[] = obj.sumArrays(ar1,ar2);
+1019		
+//       System.out.println("Sum of ar1 and a2 = ");
+1020		
+//       obj.printArray(ret11);
+1021		
+//
+1022		
+//       int ret12[] = obj.diffArrays(ar1,ar2);
+1023		
+//       System.out.println("Difference of ar1 and a2 = ");
+1024		
+//       obj.printArray(ret12);
+1025		
+//
+1026		
+//       int ret13[] = obj.mulArrays(ar1,ar2);
+1027		
+//       System.out.println("Multiplication of ar1 and a2 = ");
+1028		
+//       obj.printArray(ret13);
+1029		
+//
+1030		
+//       int ret14[] = obj.concatArrays(ar1,ar2);
+1031		
+//       System.out.println("Concatenation of ar1 and a2 = ");
+1032		
+//       obj.printArray(ret14);
+1033		
+//
+1034		
+//       int ret15 = obj.findMaxCount(ar3);
+1035		
+//       System.out.println("Element with max number of occurrences in ar3 is : " + ret15);
+1036		
+//
+1037		
+//       int ret16 = obj.findMinCount(ar3);
+1038		
+//       System.out.println("Element with min number of occurrences in ar3 is : " + ret16);
+1039		
+//
+1040		
+//       int ar4[] = {8,88,987,1351,-45,54,-99,456};
+1041		
+//       int ar5[] = {8,88,44,21,30,-45,789,0};
+1042		
+//       int ret17 = obj.findKthlargest(ar4,2);
+1043		
+//       System.out.println("kth(2nd) largest number in ar3 : " + ret17);
+1044		
+//       
+1045		
+//       int ret18 = obj.findKthsmallest(ar4,2);
+1046		
+//       System.out.println("kth(2nd) largest number in ar3 : " + ret18);       
+1047		
+//
+1048		
+//       int ret19[] = obj.getUnion(ar4,ar5);
+1049		
+//       System.out.println("Union of ar4 and ar5 is ");
+1050		
+//       obj.printArray(ret19);
+1051		
+//
+1052		
+//       int ret20[] = obj.getIntersection(ar4,ar5);
+1053		
+//       System.out.println("Intersection of ar4 and ar5 is ");
+1054		
+//       obj.printArray(ret20);
+1055		
+   }
+1056		
+}
+Mutations
+
+16		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+20		
+1. changed conditional boundary → SURVIVED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+23		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. Replaced integer subtraction with addition → KILLED
+5. negated conditional → KILLED
+25		
+1. changed conditional boundary → SURVIVED
+2. Replaced integer addition with subtraction → KILLED
+3. negated conditional → KILLED
+28		
+1. Replaced integer addition with subtraction → KILLED
+29		
+1. Replaced integer addition with subtraction → KILLED
+33		
+1. negated conditional → KILLED
+36		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::bubbleSort → KILLED
+46		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+50		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+53		
+1. changed conditional boundary → KILLED
+2. Changed increment from -1 to 1 → KILLED
+3. negated conditional → KILLED
+55		
+1. changed conditional boundary → SURVIVED
+2. Replaced integer subtraction with addition → KILLED
+3. negated conditional → KILLED
+57		
+1. Replaced integer subtraction with addition → KILLED
+64		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::insertionSort → KILLED
+74		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+78		
+1. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::makeMaxHeap → KILLED
+80		
+1. changed conditional boundary → SURVIVED
+2. Changed increment from -1 to 1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+85		
+1. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::heapAdjust → KILLED
+87		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::heapSort → KILLED
+93		
+1. changed conditional boundary → KILLED
+2. Changed increment from -1 to 1 → KILLED
+3. Replaced integer division with multiplication → KILLED
+4. Replaced integer subtraction with addition → SURVIVED
+5. negated conditional → KILLED
+95		
+1. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::heapAdjust → KILLED
+101		
+1. Replaced integer multiplication with division → KILLED
+2. Replaced integer addition with subtraction → KILLED
+103		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+105		
+1. changed conditional boundary → KILLED
+2. changed conditional boundary → SURVIVED
+3. Replaced integer subtraction with addition → KILLED
+4. Replaced integer addition with subtraction → KILLED
+5. negated conditional → KILLED
+6. negated conditional → KILLED
+107		
+1. Changed increment from 1 to -1 → TIMED_OUT
+109		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+113		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer division with multiplication → KILLED
+114		
+1. Replaced integer multiplication with division → TIMED_OUT
+2. Replaced integer addition with subtraction → TIMED_OUT
+116		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer division with multiplication → KILLED
+126		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+130		
+1. Replaced integer subtraction with addition → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__mergeSort → KILLED
+131		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::mergeSort → KILLED
+136		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+140		
+1. Replaced integer addition with subtraction → KILLED
+2. Replaced integer division with multiplication → KILLED
+141		
+1. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__mergeSort → KILLED
+142		
+1. Replaced integer addition with subtraction → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__mergeSort → KILLED
+143		
+1. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::merge → KILLED
+148		
+1. Replaced integer addition with subtraction → KILLED
+2. Replaced integer division with multiplication → KILLED
+149		
+1. Replaced integer subtraction with addition → SURVIVED
+2. Replaced integer addition with subtraction → KILLED
+150		
+1. Replaced integer subtraction with addition → SURVIVED
+152		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Changed increment from 1 to -1 → KILLED
+4. negated conditional → KILLED
+157		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Changed increment from 1 to -1 → KILLED
+4. negated conditional → KILLED
+161		
+1. changed conditional boundary → SURVIVED
+2. changed conditional boundary → KILLED
+3. changed conditional boundary → KILLED
+4. Changed increment from 1 to -1 → KILLED
+5. Replaced integer subtraction with addition → KILLED
+6. Replaced integer addition with subtraction → KILLED
+7. Replaced integer subtraction with addition → KILLED
+8. negated conditional → KILLED
+9. negated conditional → KILLED
+10. negated conditional → KILLED
+163		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+166		
+1. Changed increment from 1 to -1 → KILLED
+171		
+1. Changed increment from 1 to -1 → KILLED
+174		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. Replaced integer addition with subtraction → KILLED
+5. negated conditional → KILLED
+176		
+1. Changed increment from 1 to -1 → KILLED
+178		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+180		
+1. Changed increment from 1 to -1 → KILLED
+191		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+196		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+199		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer addition with subtraction → KILLED
+4. negated conditional → KILLED
+201		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+210		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::selectionSort → KILLED
+222		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+227		
+1. Replaced integer subtraction with addition → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__quickSort → KILLED
+228		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::quickSort → KILLED
+233		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+238		
+1. Replaced integer subtraction with addition → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__quickSort → KILLED
+239		
+1. Replaced integer addition with subtraction → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::__quickSort → KILLED
+247		
+1. changed conditional boundary → SURVIVED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+249		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+254		
+1. Changed increment from 1 to -1 → KILLED
+261		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::partition → KILLED
+271		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+277		
+1. Replaced integer subtraction with addition → SURVIVED
+2. Replaced integer addition with subtraction → KILLED
+280		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+282		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer addition with subtraction → KILLED
+285		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+287		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer addition with subtraction → KILLED
+290		
+1. changed conditional boundary → KILLED
+2. Replaced integer subtraction with addition → KILLED
+3. negated conditional → KILLED
+292		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer subtraction with addition → KILLED
+293		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer subtraction with addition → KILLED
+296		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+301		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::countSort → KILLED
+311		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+316		
+1. negated conditional → KILLED
+319		
+1. changed conditional boundary → SURVIVED
+2. Changed increment from 2 to -2 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+321		
+1. changed conditional boundary → SURVIVED
+2. Replaced integer addition with subtraction → TIMED_OUT
+3. negated conditional → KILLED
+323		
+1. Replaced integer addition with subtraction → TIMED_OUT
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::swap → TIMED_OUT
+328		
+1. changed conditional boundary → KILLED
+2. Changed increment from 2 to -2 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+330		
+1. changed conditional boundary → SURVIVED
+2. Replaced integer addition with subtraction → KILLED
+3. negated conditional → KILLED
+332		
+1. Replaced integer addition with subtraction → KILLED
+2. removed call to com/softwareTesting/ArrayFunctions/ArrayFunctions::swap → TIMED_OUT
+337		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::oddEvenSort → KILLED
+355		
+1. Replaced integer addition with subtraction → KILLED
+358		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+359		
+1. Replaced integer addition with subtraction → KILLED
+362		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+363		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+364		
+1. Changed increment from 1 to -1 → KILLED
+366		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::bucketSort → KILLED
+375		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+388		
+1. negated conditional → KILLED
+2. negated conditional → KILLED
+398		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+400		
+1. changed conditional boundary → SURVIVED
+2. Replaced integer addition with subtraction → KILLED
+3. negated conditional → KILLED
+404		
+1. Replaced integer addition with subtraction → KILLED
+405		
+1. Replaced integer addition with subtraction → KILLED
+412		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::combSort → KILLED
+419		
+1. Replaced integer multiplication with division → SURVIVED
+2. Replaced integer division with multiplication → SURVIVED
+420		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → TIMED_OUT
+421		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::getNextGap → TIMED_OUT
+422		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::getNextGap → SURVIVED
+429		
+1. changed conditional boundary → NO_COVERAGE
+2. Changed increment from 1 to -1 → NO_COVERAGE
+3. negated conditional → NO_COVERAGE
+431		
+1. removed call to java/io/PrintStream::print → NO_COVERAGE
+433		
+1. removed call to java/io/PrintStream::println → NO_COVERAGE
+443		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+445		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+450		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::getMin → KILLED
+459		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+461		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+466		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::getMax → KILLED
+474		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+476		
+1. negated conditional → KILLED
+478		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::search → KILLED
+481		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::search → KILLED
+490		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+492		
+1. Replaced integer addition with subtraction → KILLED
+494		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::sum → KILLED
+501		
+1. Replaced integer subtraction with addition → SURVIVED
+502		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+504		
+1. Replaced integer subtraction with addition → TIMED_OUT
+2. Replaced integer division with multiplication → KILLED
+3. Replaced integer addition with subtraction → KILLED
+507		
+1. negated conditional → KILLED
+509		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::binarySearch → KILLED
+512		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+514		
+1. Replaced integer addition with subtraction → KILLED
+519		
+1. Replaced integer subtraction with addition → TIMED_OUT
+523		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::binarySearch → KILLED
+533		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+539		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → KILLED
+4. negated conditional → KILLED
+541		
+1. Replaced integer addition with subtraction → KILLED
+543		
+1. Replaced integer subtraction with addition → KILLED
+544		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::leftRotatebyOne → KILLED
+553		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+558		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+563		
+1. Changed increment from 1 to -1 → KILLED
+564		
+1. Changed increment from -1 to 1 → KILLED
+566		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::reverseSubArray → KILLED
+575		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+579		
+1. Replaced integer subtraction with addition → KILLED
+580		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::reverseArray → KILLED
+585		
+1. negated conditional → KILLED
+587		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::gcd → KILLED
+591		
+1. Replaced integer modulus with multiplication → KILLED
+2. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::gcd → KILLED
+601		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+606		
+1. Replaced integer modulus with multiplication → KILLED
+609		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+615		
+1. Replaced integer addition with subtraction → KILLED
+616		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+618		
+1. Replaced integer subtraction with addition → KILLED
+620		
+1. negated conditional → KILLED
+629		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::leftRotatebyK → KILLED
+638		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+640		
+1. negated conditional → KILLED
+642		
+1. Changed increment from 1 to -1 → KILLED
+645		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::countOccurrences → KILLED
+653		
+1. changed conditional boundary → SURVIVED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer subtraction with addition → SURVIVED
+4. negated conditional → KILLED
+655		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. Replaced integer addition with subtraction → KILLED
+4. negated conditional → KILLED
+657		
+1. Replaced integer addition with subtraction → KILLED
+2. negated conditional → KILLED
+659		
+1. replaced boolean return with false for com/softwareTesting/ArrayFunctions/ArrayFunctions::chkPair → KILLED
+663		
+1. replaced boolean return with true for com/softwareTesting/ArrayFunctions/ArrayFunctions::chkPair → KILLED
+672		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+674		
+1. Replaced integer addition with subtraction → KILLED
+676		
+1. Replaced double division with multiplication → KILLED
+677		
+1. replaced double return with 0.0d for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMean → KILLED
+687		
+1. removed call to java/util/Arrays::sort → KILLED
+689		
+1. Replaced integer modulus with multiplication → KILLED
+2. negated conditional → KILLED
+691		
+1. Replaced integer division with multiplication → KILLED
+692		
+1. replaced double return with 0.0d for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMedian → KILLED
+695		
+1. Replaced integer subtraction with addition → KILLED
+2. Replaced integer division with multiplication → KILLED
+3. Replaced integer division with multiplication → KILLED
+4. Replaced integer addition with subtraction → KILLED
+5. Replaced double division with multiplication → KILLED
+696		
+1. replaced double return with 0.0d for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMedian → KILLED
+707		
+1. negated conditional → KILLED
+710		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+712		
+1. Replaced integer addition with subtraction → KILLED
+714		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::sumArrays → KILLED
+719		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::sumArrays → NO_COVERAGE
+731		
+1. negated conditional → KILLED
+734		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+736		
+1. Replaced integer subtraction with addition → KILLED
+738		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::diffArrays → KILLED
+743		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::diffArrays → NO_COVERAGE
+755		
+1. negated conditional → KILLED
+758		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+760		
+1. Replaced integer multiplication with division → KILLED
+762		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::mulArrays → KILLED
+767		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::mulArrays → NO_COVERAGE
+775		
+1. Replaced integer addition with subtraction → KILLED
+781		
+1. Changed increment from 1 to -1 → KILLED
+786		
+1. Changed increment from 1 to -1 → KILLED
+788		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::concatArrays → KILLED
+797		
+1. negated conditional → KILLED
+798		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMaxCount → NO_COVERAGE
+802		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+804		
+1. Replaced integer subtraction with addition → KILLED
+2. negated conditional → KILLED
+806		
+1. Changed increment from 1 to -1 → KILLED
+810		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+819		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+824		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMaxCount → KILLED
+833		
+1. negated conditional → KILLED
+834		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMinCount → NO_COVERAGE
+838		
+1. changed conditional boundary → KILLED
+2. Changed increment from 1 to -1 → KILLED
+3. negated conditional → KILLED
+840		
+1. Replaced integer subtraction with addition → KILLED
+2. negated conditional → KILLED
+842		
+1. Changed increment from 1 to -1 → KILLED
+846		
+1. changed conditional boundary → SURVIVED
+2. negated conditional → KILLED
+855		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+860		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findMinCount → KILLED
+868		
+1. Replaced integer subtraction with addition → KILLED
+869		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findKthlargest → KILLED
+877		
+1. Replaced integer subtraction with addition → KILLED
+878		
+1. replaced int return with 0 for com/softwareTesting/ArrayFunctions/ArrayFunctions::findKthsmallest → KILLED
+888		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+893		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+902		
+1. negated conditional → KILLED
+905		
+1. Changed increment from 1 to -1 → KILLED
+907		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::getUnion → KILLED
+918		
+1. changed conditional boundary → KILLED
+2. changed conditional boundary → SURVIVED
+3. changed conditional boundary → KILLED
+4. changed conditional boundary → KILLED
+5. negated conditional → KILLED
+6. negated conditional → KILLED
+7. negated conditional → KILLED
+8. negated conditional → KILLED
+920		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+922		
+1. Changed increment from 1 to -1 → KILLED
+924		
+1. changed conditional boundary → KILLED
+2. negated conditional → KILLED
+926		
+1. Changed increment from 1 to -1 → KILLED
+931		
+1. Changed increment from 1 to -1 → KILLED
+932		
+1. Changed increment from 1 to -1 → KILLED
+939		
+1. negated conditional → KILLED
+942		
+1. Changed increment from 1 to -1 → KILLED
+944		
+1. replaced return value with null for com/softwareTesting/ArrayFunctions/ArrayFunctions::getIntersection → KILLED
+Active mutators
+
+BOOLEAN_FALSE_RETURN
+BOOLEAN_TRUE_RETURN
+CONDITIONALS_BOUNDARY_MUTATOR
+EMPTY_RETURN_VALUES
+INCREMENTS_MUTATOR
+INVERT_NEGS_MUTATOR
+MATH_MUTATOR
+NEGATE_CONDITIONALS_MUTATOR
+NULL_RETURN_VALUES
+PRIMITIVE_RETURN_VALS_MUTATOR
+VOID_METHOD_CALL_MUTATOR
+Tests examined
+
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestcountSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (6 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.Testgcd(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (3 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestbinarySearch(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (6 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestsumArrays(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestgetIntersection(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (2 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestgetMax(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestmergeSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestreverseArray(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindKthlargest(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestbubbleSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (4 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestquickSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (0 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestmulArrays(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestoddEvenSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestcountOccurrences(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestconcatArrays(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestcombSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestheapSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestdiffArrays(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestgetUnion(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindMinCount(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestinsertionSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (2 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindMaxCount(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindMean(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestleftRotatebyK(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestselectionSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (2 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestbucketSort(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (5 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.Testsum(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (2 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.Testsearch(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindKthsmallest(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestgetMin(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestleftRotatebyOne(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestchkPair(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+com.softwareTesting.ArrayFunctions.ArrayFunctionsTest.TestfindMedian(com.softwareTesting.ArrayFunctions.ArrayFunctionsTest) (1 ms)
+
+Report generated by PIT 1.4.11
